@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'location.dart';
 
 class PassengerPage extends StatefulWidget {
   @override
@@ -11,16 +12,17 @@ class PassengerPage extends StatefulWidget {
 class PassengerPageState extends State<PassengerPage> {
   Completer<GoogleMapController> _controller = Completer();
 
-  static final CameraPosition _kGooglePlex = CameraPosition(
+  static final CameraPosition _mapPos = CameraPosition(
     target: LatLng(37.42796133580664, -122.085749655962),
     zoom: 14.4746,
   );
 
-  // TODO: Remove
-  static final CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
-      zoom: 19.151926040649414);
+  @override
+  void initState() {
+    super.initState();
+    determinePosition().then((pos) =>
+        _goToCoordinates(latitude: pos.latitude, longitude: pos.longitude));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class PassengerPageState extends State<PassengerPage> {
       body: Stack(children: [
         GoogleMap(
           mapType: MapType.normal,
-          initialCameraPosition: _kGooglePlex,
+          initialCameraPosition: _mapPos,
           onMapCreated: (GoogleMapController controller) {
             _controller.complete(controller);
           },
@@ -117,9 +119,10 @@ class PassengerPageState extends State<PassengerPage> {
     );
   }
 
-  // TODO: Remove
-  Future<void> _goToTheLake() async {
+  Future<void> _goToCoordinates(
+      {required double latitude, required double longitude}) async {
     final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
+    controller.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(target: LatLng(latitude, longitude), zoom: 14)));
   }
 }
