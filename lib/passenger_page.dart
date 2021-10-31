@@ -34,16 +34,18 @@ class PassengerPageState extends State<PassengerPage> {
       body: Stack(children: [
         StreamBuilder<QuerySnapshot>(
             stream: _busStream,
-            builder: (context, snapshot) {
+            builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
               Set<Marker> _markers = {};
 
               if (snapshot.hasData) {
-                snapshot.data!.docs.map((DocumentSnapshot document) {
+                snapshot.data!.docs.forEach((DocumentSnapshot document) {
                   Map<String, dynamic> data =
                       document.data()! as Map<String, dynamic>;
+
+                  final lat = double.parse(data["latitude"].toString());
+                  final lon = double.parse(data["longitude"].toString());
                   _markers.add(Marker(
-                      markerId: MarkerId("Bus"),
-                      position: LatLng(data["latitude"], data["longitude"])));
+                      markerId: MarkerId("Bus"), position: LatLng(lat, lon)));
                 });
               }
 
