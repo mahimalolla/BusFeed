@@ -94,8 +94,32 @@ class _DriverWhileDrivingState extends State<DriverWhileDriving> {
                 ),
               ],
             ),
+            SizedBox(height: 50,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  children: [
+                    GestureDetector(
+                      onTap: (){},
+                      child: Image(image: AssetImage('assets/pause_button.png'),width: 120,),
+                    ),
+                    Text('Pause',style: GoogleFonts.poppins(color: Color(0xffB4D655),fontSize: 12),)
+                  ],
+                ),
+                Column(
+                  children: [
+                    GestureDetector(
+                      onTap: (){},
+                      child: Image(image: AssetImage('assets/stop_button.png'),width: 120,),
+                    ),
+                    Text('Stop ride',style: GoogleFonts.poppins(color: Color(0xffB4D655),fontSize: 12),)
+                  ],
+                ),
+              ],
+            ),
             Padding(
-              padding: EdgeInsets.only(top: 80, bottom: 100),
+              padding: EdgeInsets.only(top: 80, bottom: 40),
               child: Text(
                 _timeString.toString(),
                 style: TextStyle(
@@ -105,6 +129,12 @@ class _DriverWhileDrivingState extends State<DriverWhileDriving> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(onPressed: (){},backgroundColor: Colors.red,child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: CustomPaint(
+          painter: OpenPainter(),
+        ),
+      ),),
     );
   }
 
@@ -115,4 +145,18 @@ class _DriverWhileDrivingState extends State<DriverWhileDriving> {
       _timeString = formattedDateTime;
     });
   }
+}
+
+class OpenPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    var paint1 = Paint()
+      ..color = Colors.black
+      ..style = PaintingStyle.stroke;
+    //a circle
+    canvas.drawCircle(Offset(0, 0), 20,paint1);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => true;
 }
