@@ -36,13 +36,10 @@ dependencies:
   # Google maps
   google_maps_flutter:
   location: ^4.3.0
-  geolocator:
-
+  geolocator: 7.6.2
 
   lottie: ^1.2.1
   sign_button: ^2.0.1
-
-
 
 dev_dependencies:
   flutter_test:
