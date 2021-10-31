@@ -1,4 +1,5 @@
 import 'package:busfeed/driver_start.dart';
+import 'package:busfeed/login.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:busfeed/passenger_page.dart';
@@ -7,6 +8,10 @@ void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: SplashPage(),
+    theme:ThemeData(
+    fontFamily: 'Poppins',
+    primarySwatch: Colors.lightGreen,
+  ),
   ));
 }
 
@@ -93,7 +98,7 @@ class SplashPage extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => DriverHome()));
+                                builder: (context) => Login(title: 'Login')));
                       },
                       child: Text('or login as driver',
                           style: GoogleFonts.poppins(

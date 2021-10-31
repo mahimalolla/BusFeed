@@ -1,34 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sign_button/sign_button.dart';
+import 'package:busfeed/driver_start.dart';
+import 'package:busfeed/globals.dart' as globals;
 
-void main() {
-  runApp(MyApp());
-}
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Busfeed',
-      theme: ThemeData(
-        fontFamily: 'Poppins',
-        primarySwatch: Colors.lightGreen,
-      ),
-      home: MyHomePage(title: 'Login'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+class Login extends StatefulWidget {
+  Login({Key? key, required this.title}) : super(key: key);
   final String title;
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _LoginState createState() => _LoginState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _LoginState extends State<Login> {
+
+  var _phoneController = TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,23 +37,31 @@ class _MyHomePageState extends State<MyHomePage> {
               Container(
                 width: MediaQuery.of(context).size.width / 3 * 2,
                 child: TextField(
+                  controller: _phoneController,
                   maxLength: 10,
                   showCursor: false,
                   keyboardType: TextInputType.phone,
                   cursorWidth: 1,
+                  cursorColor: Colors.lightGreenAccent,
                   enableSuggestions: true,
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 35),
                 ),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  globals.phoneNumber = _phoneController.text.toString();
+                  debugPrint('Phone number: ${globals.phoneNumber}');
+                  if(globals.phoneNumber=='9876543210'){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => DriverHome()));
+                  }
+                },
                 child: Container(
                   width: MediaQuery.of(context).size.width / 2,
                   child: Center(
                     child: Text(
                       'Login',
-                      style: TextStyle(fontSize: 30),
+                      style: GoogleFonts.poppins(color: Color(0xff8CC436),fontSize: 30),
                     ),
                   ),
                 ),
