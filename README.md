@@ -1,13 +1,16 @@
 
 ![splash-icon](https://user-images.githubusercontent.com/67522615/139585519-15c41af2-148c-4569-8e86-6609560782c0.png)
+![image](https://user-images.githubusercontent.com/67522615/139585686-d17b4762-c217-45d3-b9f1-5f77ff58c8d2.png)
 
 # busfeed
 
 A new Flutter project.
 
-## Getting Started
+## Problem Statement
 
-This project is a starting point for a Flutter application.
+Present day bus management and tracking systems often rely on external trackers and hardware based solutions. This introduces proprietary hardware into the system and makes it more difficult as time goes on to keep everything updated and running as expected.
+Given the advanced state of mobile devices today, this can be implemented using open source technologies that are constantly updated with already existing mobile devices. 
+Additional quality of life features like smart bus stops and emergency responses can also be added for no cost.
 
 A few resources to get you started if this is your first Flutter project:
 
