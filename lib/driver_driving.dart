@@ -36,7 +36,7 @@ class _DriverWhileDrivingState extends State<DriverWhileDriving> {
         _currentPosition = position;
         _locationString = position.latitude.toString()+position.longitude.toString();
       });
-      Database.addItem(location: position);
+      Database.updateItem(location: position);
     }).catchError((e) {
       print(e);
     });
