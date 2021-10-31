@@ -1,31 +1,54 @@
 import 'dart:async';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:busfeed/globals.dart' as globals;
+import 'package:busfeed/database.dart';
 
 class DriverWhileDriving extends StatefulWidget {
-  const DriverWhileDriving({Key? key}) : super(key: key);
+  DriverWhileDriving({Key? key}) : super(key: key);
 
   @override
   _DriverWhileDrivingState createState() => _DriverWhileDrivingState();
 }
+
 
 class _DriverWhileDrivingState extends State<DriverWhileDriving> {
   var nowTime = DateTime.now();
   String _timeString = "";
   String _locationString = 'Searching...';
 
+  Position ?_currentPosition;
+
   var playButton = Image(
     image: AssetImage('assets/play_button.png'),
     width: 150,
   );
 
+  _getCurrentLocation() async {
+    Geolocator
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best, forceAndroidLocationManager: true)
+        .then((Position position) {
+      setState(() {
+        _currentPosition = position;
+        _locationString = position.latitude.toString()+position.longitude.toString();
+      });
+      Database.addItem(location: position);
+    }).catchError((e) {
+      print(e);
+    });
+  }
+
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    Firebase.initializeApp();
     Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
+    Timer.periodic(Duration(seconds:1),(Timer t) => _getCurrentLocation());
   }
 
   @override
@@ -67,7 +90,7 @@ class _DriverWhileDrivingState extends State<DriverWhileDriving> {
               ),
             ),
             Text(
-              '+91 12345 12345',
+              globals.phoneNumber,
               style: GoogleFonts.poppins(fontSize: 20, color: Colors.white),
             ),
             Column(

@@ -7,13 +7,14 @@ import 'package:intl/intl.dart';
 import 'package:busfeed/main.dart';
 
 class DriverHome extends StatefulWidget {
-  const DriverHome({Key? key}) : super(key: key);
 
   @override
   _DriverHomeState createState() => _DriverHomeState();
 }
 
 class _DriverHomeState extends State<DriverHome> {
+
+
   var nowTime = DateTime.now();
   String _timeString = "";
 
@@ -21,6 +22,7 @@ class _DriverHomeState extends State<DriverHome> {
     image: AssetImage('assets/play_button.png'),
     width: 150,
   );
+
 
   @override
   void initState() {
@@ -120,4 +122,6 @@ class _DriverHomeState extends State<DriverHome> {
       _timeString = formattedDateTime;
     });
   }
+
+
 }
