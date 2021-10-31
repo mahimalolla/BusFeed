@@ -1,6 +1,7 @@
 import 'package:busfeed/driver_start.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:busfeed/passenger_page.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -77,11 +78,16 @@ class SplashPage extends StatelessWidget {
                             fontSize: 25,
                             color: Colors.white),
                       ),
-                      onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PassengerPage()));
+                    },
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 30),
+                  padding: EdgeInsets.only(top: 15),
                     child: TextButton(
                       onPressed: () {
                         Navigator.push(
@@ -91,7 +97,7 @@ class SplashPage extends StatelessWidget {
                       },
                       child: Text('or login as driver',
                           style: GoogleFonts.poppins(
-                              fontSize: 15, color: Color(0xff6E765F))),
+                            fontSize: 15, color: Color(0xff8CC436))),
                     ),
                   )
                 ],
