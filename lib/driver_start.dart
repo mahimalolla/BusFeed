@@ -9,14 +9,11 @@ import 'package:busfeed/main.dart';
 import 'package:busfeed/globals.dart' as globals;
 
 class DriverHome extends StatefulWidget {
-
   @override
   _DriverHomeState createState() => _DriverHomeState();
 }
 
 class _DriverHomeState extends State<DriverHome> {
-
-
   var nowTime = DateTime.now();
   String _timeString = "";
 
@@ -24,7 +21,6 @@ class _DriverHomeState extends State<DriverHome> {
     image: AssetImage('assets/play_button.png'),
     width: 150,
   );
-
 
   @override
   void initState() {
@@ -90,7 +86,6 @@ class _DriverHomeState extends State<DriverHome> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => DriverWhileDriving()));
-                    Database.init(busNo: globals.busNo);
               },
             ),
             SizedBox(
@@ -104,7 +99,8 @@ class _DriverHomeState extends State<DriverHome> {
               padding: EdgeInsets.only(top: 100),
               child: GestureDetector(
                   onTap: () {
-                    Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashPage()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => SplashPage()));
                   },
                   child: Text(
                     'Logout',
@@ -125,6 +121,4 @@ class _DriverHomeState extends State<DriverHome> {
       _timeString = formattedDateTime;
     });
   }
-
-
 }

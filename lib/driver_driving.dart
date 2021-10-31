@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:busfeed/driver_start.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -16,35 +15,33 @@ class DriverWhileDriving extends StatefulWidget {
   _DriverWhileDrivingState createState() => _DriverWhileDrivingState();
 }
 
-
 class _DriverWhileDrivingState extends State<DriverWhileDriving> {
   var nowTime = DateTime.now();
   String _timeString = "";
   String _locationString = 'Searching...';
 
-  Position ?_currentPosition;
-
+  final db = Database(busNo: globals.busNo, phNo: globals.phoneNumber);
 
   _getCurrentLocation() async {
-    Geolocator
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best, forceAndroidLocationManager: true)
+    Geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.best,
+            forceAndroidLocationManager: true)
         .then((Position position) {
       setState(() {
-        _currentPosition = position;
-        _locationString = position.latitude.toString()+position.longitude.toString();
+        _locationString =
+            position.latitude.toString() + position.longitude.toString();
       });
-      Database.updateItem(location: position,busNo: globals.busNo);
+      db.updateItem(location: position);
     }).catchError((e) {
       print(e);
     });
   }
 
-
   @override
   void initState() {
     super.initState();
     Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
-    Timer.periodic(Duration(seconds:1),(Timer t) => _getCurrentLocation());
+    Timer.periodic(Duration(seconds: 1), (Timer t) => _getCurrentLocation());
   }
 
   @override
@@ -101,7 +98,8 @@ class _DriverWhileDrivingState extends State<DriverWhileDriving> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 10, right: _locationString.length.toInt()*14.5),
+                  padding: EdgeInsets.only(
+                      top: 10, right: _locationString.length.toInt() * 14.5),
                   child: Container(
                       child: Text(
                     _locationString,
@@ -113,22 +111,32 @@ class _DriverWhileDrivingState extends State<DriverWhileDriving> {
                 ),
               ],
             ),
-            SizedBox(height: 50,),
+            SizedBox(
+              height: 50,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Column(
                   children: [
                     GestureDetector(
-                      onTap: (){
-                        Database.deleteItem();
-                        Navigator.push(context,MaterialPageRoute(builder: (context) => DriverHome()));
+                      onTap: () {
+                        db.deleteItem();
+                        Navigator.pop(context);
                       },
-                      child: Image(image: AssetImage('assets/stop_button.png'),width: 150,),
+                      child: Image(
+                        image: AssetImage('assets/stop_button.png'),
+                        width: 150,
+                      ),
                     ),
-                    Text('Pause',style: GoogleFonts.poppins(color: Color(0xffB4D655),fontSize: 12),)
+                    Text(
+                      'Pause',
+                      style: GoogleFonts.poppins(
+                          color: Color(0xffB4D655), fontSize: 12),
+                    )
                   ],
-                ),],
+                ),
+              ],
             ),
             Padding(
               padding: EdgeInsets.only(top: 40, bottom: 40),
@@ -141,12 +149,16 @@ class _DriverWhileDrivingState extends State<DriverWhileDriving> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: (){},backgroundColor: Colors.red,child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: CustomPaint(
-          painter: OpenPainter(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: Colors.red,
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: CustomPaint(
+            painter: OpenPainter(),
+          ),
         ),
-      ),),
+      ),
     );
   }
 
@@ -166,7 +178,7 @@ class OpenPainter extends CustomPainter {
       ..color = Colors.black
       ..style = PaintingStyle.stroke;
     //a circle
-    canvas.drawCircle(Offset(0, 0), 20,paint1);
+    canvas.drawCircle(Offset(0, 0), 20, paint1);
   }
 
   @override

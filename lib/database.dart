@@ -1,52 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geolocator/geolocator.dart';
 
-final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-final CollectionReference _mainCollection = _firestore.collection('location');
-
 class Database {
+  final CollectionReference _mainCollection =
+      FirebaseFirestore.instance.collection('location');
+  String busNo, phNo;
+  Database({required this.busNo, required this.phNo});
 
-  static Future<void> init({var busNo}) async {
-    DocumentReference documentReferencer =
-        _mainCollection.doc('driver-1');
-
+  Future<void> updateItem({required Position location}) async {
     Map<String, dynamic> data = <String, dynamic>{
-      "latitude": 0,
-      "longitude": 0,
-      "busNo":busNo
-    };
-
-    await documentReferencer
-        .set(data)
-        .whenComplete(() => print("Location uploaded"))
-        .catchError((e) => print(e));
-  }
-
-  static Future<void> updateItem({
-    required Position? location,var busNo
-  }) async {
-    DocumentReference documentReferencer =
-        _mainCollection.doc('driver-1');
-
-    Map<String, dynamic> data = <String, dynamic>{
-      "latitude": location!.latitude,
+      "latitude": location.latitude,
       "longitude": location.longitude,
-      "busNo":busNo
+      "busNo": busNo
     };
 
-    await documentReferencer
-        .update(data)
-        .whenComplete(() => print("Location updated"))
-        .catchError((e) => print(e));
+    await _mainCollection.doc(phNo).set(data);
   }
 
-  static Future<void> deleteItem() async {
-    DocumentReference documentReferencer =
-    _mainCollection.doc('driver-1');
-
-    await documentReferencer
-        .delete()
-        .whenComplete(() => print('Document deleted'))
-        .catchError((e) => print(e));
+  Future<void> deleteItem() async {
+    print("HIII THIS WAS CALLED !!!!!");
+    await _mainCollection.doc(phNo).delete();
   }
 }

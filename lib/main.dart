@@ -11,7 +11,7 @@ void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: SplashPage(),
-    theme:ThemeData(
+    theme: ThemeData(
     fontFamily: 'Poppins',
     primarySwatch: Colors.lightGreen,
   ),
