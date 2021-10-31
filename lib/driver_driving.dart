@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:busfeed/driver_start.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -28,6 +29,14 @@ class _DriverWhileDrivingState extends State<DriverWhileDriving> {
     width: 150,
   );
 
+  var pauseButton = Image(image: AssetImage('assets/pause_button.png'),width: 120,);
+  var resumeButton = Image(
+    image: AssetImage('assets/play_button.png'),
+    width: 120,
+  );
+
+  var isPlay = false;
+
   _getCurrentLocation() async {
     Geolocator
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.best, forceAndroidLocationManager: true)
@@ -40,6 +49,10 @@ class _DriverWhileDrivingState extends State<DriverWhileDriving> {
     }).catchError((e) {
       print(e);
     });
+  }
+
+  _pauseOrStop() async{
+    Database.deleteItem();
   }
 
 
@@ -124,8 +137,11 @@ class _DriverWhileDrivingState extends State<DriverWhileDriving> {
                 Column(
                   children: [
                     GestureDetector(
-                      onTap: (){},
-                      child: Image(image: AssetImage('assets/pause_button.png'),width: 120,),
+                      onTap: (){
+                        Database.deleteItem();
+                        Navigator.push(context,MaterialPageRoute(builder: (context) => DriverHome()));
+                      },
+                      child: pauseButton
                     ),
                     Text('Pause',style: GoogleFonts.poppins(color: Color(0xffB4D655),fontSize: 12),)
                   ],
@@ -133,7 +149,10 @@ class _DriverWhileDrivingState extends State<DriverWhileDriving> {
                 Column(
                   children: [
                     GestureDetector(
-                      onTap: (){},
+                      onTap: (){
+                        Database.deleteItem();
+
+                      },
                       child: Image(image: AssetImage('assets/stop_button.png'),width: 120,),
                     ),
                     Text('Stop ride',style: GoogleFonts.poppins(color: Color(0xffB4D655),fontSize: 12),)

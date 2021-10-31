@@ -25,9 +25,8 @@ class Database {
   static Future<void> updateItem({
     required Position? location,
   }) async {
-    var docId = 'arbI5a2DFOU5Kg1iLN0o';
     DocumentReference documentReferencer =
-        _mainCollection.doc(userUid).collection('location').doc(docId);
+        _mainCollection.doc('driver-1');
 
     Map<String, dynamic> data = <String, dynamic>{
       "latitude": location!.latitude,
@@ -37,6 +36,16 @@ class Database {
     await documentReferencer
         .update(data)
         .whenComplete(() => print("Location updated"))
+        .catchError((e) => print(e));
+  }
+
+  static Future<void> deleteItem() async {
+    DocumentReference documentReferencer =
+    _mainCollection.doc('driver-1');
+
+    await documentReferencer
+        .delete()
+        .whenComplete(() => print('Document deleted'))
         .catchError((e) => print(e));
   }
 }
