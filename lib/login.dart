@@ -16,7 +16,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
 
   var _phoneController = TextEditingController();
-
+  var _busNoController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +33,20 @@ class _LoginState extends State<Login> {
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.width / 5,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width / 5 * 2,
+                child: TextField(
+                  controller: _busNoController = TextEditingController(),
+                  maxLength: 4,
+                  showCursor: false,
+                  keyboardType: TextInputType.phone,
+                  cursorWidth: 1,
+                  cursorColor: Colors.lightGreenAccent,
+                  enableSuggestions: true,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 35),
+                ),
               ),
               Container(
                 width: MediaQuery.of(context).size.width / 3 * 2,
@@ -54,6 +68,7 @@ class _LoginState extends State<Login> {
                   debugPrint('Phone number: ${globals.phoneNumber}');
                   if(globals.phoneNumber=='9876543210'){
                     Navigator.push(context, MaterialPageRoute(builder: (context) => DriverHome()));
+                    globals.busNo = _busNoController.text.toString();
                   }
                 },
                 child: Container(

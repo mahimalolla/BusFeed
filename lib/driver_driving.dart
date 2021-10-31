@@ -24,18 +24,6 @@ class _DriverWhileDrivingState extends State<DriverWhileDriving> {
 
   Position ?_currentPosition;
 
-  var playButton = Image(
-    image: AssetImage('assets/play_button.png'),
-    width: 150,
-  );
-
-  var pauseButton = Image(image: AssetImage('assets/pause_button.png'),width: 120,);
-  var resumeButton = Image(
-    image: AssetImage('assets/play_button.png'),
-    width: 120,
-  );
-
-  var isPlay = false;
 
   _getCurrentLocation() async {
     Geolocator
@@ -45,14 +33,10 @@ class _DriverWhileDrivingState extends State<DriverWhileDriving> {
         _currentPosition = position;
         _locationString = position.latitude.toString()+position.longitude.toString();
       });
-      Database.updateItem(location: position);
+      Database.updateItem(location: position,busNo: globals.busNo);
     }).catchError((e) {
       print(e);
     });
-  }
-
-  _pauseOrStop() async{
-    Database.deleteItem();
   }
 
 
@@ -141,27 +125,14 @@ class _DriverWhileDrivingState extends State<DriverWhileDriving> {
                         Database.deleteItem();
                         Navigator.push(context,MaterialPageRoute(builder: (context) => DriverHome()));
                       },
-                      child: pauseButton
+                      child: Image(image: AssetImage('assets/stop_button.png'),width: 150,),
                     ),
                     Text('Pause',style: GoogleFonts.poppins(color: Color(0xffB4D655),fontSize: 12),)
                   ],
-                ),
-                Column(
-                  children: [
-                    GestureDetector(
-                      onTap: (){
-                        Database.deleteItem();
-
-                      },
-                      child: Image(image: AssetImage('assets/stop_button.png'),width: 120,),
-                    ),
-                    Text('Stop ride',style: GoogleFonts.poppins(color: Color(0xffB4D655),fontSize: 12),)
-                  ],
-                ),
-              ],
+                ),],
             ),
             Padding(
-              padding: EdgeInsets.only(top: 80, bottom: 40),
+              padding: EdgeInsets.only(top: 40, bottom: 40),
               child: Text(
                 _timeString.toString(),
                 style: TextStyle(

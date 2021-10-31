@@ -5,15 +5,15 @@ final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final CollectionReference _mainCollection = _firestore.collection('location');
 
 class Database {
-  static String? userUid;
 
-  static Future<void> addItem({required Position? location}) async {
+  static Future<void> init({var busNo}) async {
     DocumentReference documentReferencer =
-        _mainCollection.doc(userUid).collection('location').doc();
+        _mainCollection.doc('driver-1');
 
     Map<String, dynamic> data = <String, dynamic>{
-      "latitude": location!.latitude,
-      "longitude": location!.longitude,
+      "latitude": 0,
+      "longitude": 0,
+      "busNo":busNo
     };
 
     await documentReferencer
@@ -23,7 +23,7 @@ class Database {
   }
 
   static Future<void> updateItem({
-    required Position? location,
+    required Position? location,var busNo
   }) async {
     DocumentReference documentReferencer =
         _mainCollection.doc('driver-1');
@@ -31,6 +31,7 @@ class Database {
     Map<String, dynamic> data = <String, dynamic>{
       "latitude": location!.latitude,
       "longitude": location.longitude,
+      "busNo":busNo
     };
 
     await documentReferencer

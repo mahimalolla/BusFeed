@@ -1,10 +1,12 @@
 import 'dart:async';
 
+import 'package:busfeed/database.dart';
 import 'package:busfeed/driver_driving.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:busfeed/main.dart';
+import 'package:busfeed/globals.dart' as globals;
 
 class DriverHome extends StatefulWidget {
 
@@ -88,6 +90,7 @@ class _DriverHomeState extends State<DriverHome> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => DriverWhileDriving()));
+                    Database.init(busNo: globals.busNo);
               },
             ),
             SizedBox(
