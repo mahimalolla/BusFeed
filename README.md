@@ -1,6 +1,6 @@
 
 ![splash-icon](https://user-images.githubusercontent.com/67522615/139585519-15c41af2-148c-4569-8e86-6609560782c0.png)
-![image](https://user-images.githubusercontent.com/67522615/139585686-d17b4762-c217-45d3-b9f1-5f77ff58c8d2.png)
+![image](https://user-images.githubusercontent.com/67522615/139586004-75ae0b83-dfe9-41ad-b51c-82c57bb820f6.png)
 
 # busfeed
 
