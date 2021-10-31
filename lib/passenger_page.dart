@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'location.dart';
@@ -11,6 +12,9 @@ class PassengerPage extends StatefulWidget {
 
 class PassengerPageState extends State<PassengerPage> {
   Completer<GoogleMapController> _controller = Completer();
+
+  final _busStream =
+      FirebaseFirestore.instance.collection('location').snapshots();
 
   static final CameraPosition _mapPos = CameraPosition(
     target: LatLng(37.42796133580664, -122.085749655962),
@@ -28,13 +32,31 @@ class PassengerPageState extends State<PassengerPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       body: Stack(children: [
-        GoogleMap(
-          mapType: MapType.normal,
-          initialCameraPosition: _mapPos,
-          onMapCreated: (GoogleMapController controller) {
-            _controller.complete(controller);
-          },
-        ),
+        StreamBuilder<QuerySnapshot>(
+            stream: _busStream,
+            builder: (context, snapshot) {
+              Set<Marker> _markers = {};
+
+              if (!snapshot.hasError &&
+                  snapshot.connectionState != ConnectionState.waiting) {
+                snapshot.data!.docs.map((DocumentSnapshot document) {
+                  Map<String, dynamic> data =
+                      document.data()! as Map<String, dynamic>;
+                  _markers.add(Marker(
+                      markerId: data["busNo"],
+                      position: LatLng(data["latitude"], data["longitude"])));
+                });
+              }
+
+              return GoogleMap(
+                mapType: MapType.normal,
+                initialCameraPosition: _mapPos,
+                markers: _markers,
+                onMapCreated: (GoogleMapController controller) {
+                  _controller.complete(controller);
+                },
+              );
+            }),
         Column(
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.stretch,
