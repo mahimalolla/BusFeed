@@ -16,6 +16,8 @@ class PassengerPageState extends State<PassengerPage> {
   final _busStream =
       FirebaseFirestore.instance.collection('location').snapshots();
 
+  var clickedBus = "Bus 104B";
+
   static final CameraPosition _mapPos = CameraPosition(
     target: LatLng(37.42796133580664, -122.085749655962),
     zoom: 14.4746,
@@ -45,7 +47,13 @@ class PassengerPageState extends State<PassengerPage> {
                   final lat = double.parse(data["latitude"].toString());
                   final lon = double.parse(data["longitude"].toString());
                   _markers.add(Marker(
-                      markerId: MarkerId("Bus"), position: LatLng(lat, lon)));
+                      onTap: () {
+                        setState(() {
+                          clickedBus = data["busNo"];
+                        });
+                      },
+                      markerId: MarkerId("Bus"),
+                      position: LatLng(lat, lon)));
                 });
               }
 
@@ -82,7 +90,7 @@ class PassengerPageState extends State<PassengerPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Bus 104B",
+                    clickedBus,
                     style: TextStyle(
                         color: Color(0xff6E765F),
                         fontWeight: FontWeight.w700,
