@@ -4,11 +4,11 @@
 
 # busfeed
 
-A new Flutter project.
+A cost effective plug and play solution that enables passengers to track the live location of any bus. The system has 0 hardware costs and will depend only on the bus driver's phone and mobile data. 
 
 ## Problem Statement
 
-Present day bus management and tracking systems often rely on external trackers and hardware based solutions. This introduces proprietary hardware into the system and makes it more difficult as time goes on to keep everything updated and running as expected.
+Present day bus management and tracking systems often rely on external trackers and hardware based solutions. This introduces proprietary hardware into the system and makes it more difficult as time goes on to keep everything updated and running as expected.<br>
 Given the advanced state of mobile devices today, this can be implemented using open source technologies that are constantly updated with already existing mobile devices. 
 Additional quality of life features like smart bus stops and emergency responses can also be added for no cost.
 
