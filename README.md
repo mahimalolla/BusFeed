@@ -19,7 +19,7 @@ Passengers can also set up notifications and reminders when a bus is due and pla
 There is a panic button in the drivers' app which when pressed will alert nearby emergency services and will provide directions to the nearest hospital. 
 The bus location will be sent to the Police in case of emergencies.
 
-![image](https://user-images.githubusercontent.com/67522615/139586161-155a336a-7a06-486d-b8fa-cfa48daf63d9.png)
+![image](https://user-images.githubusercontent.com/67522615/139586250-7c85eefa-fdb7-4a03-9f15-06092a0d9d43.png)
 ![image](https://user-images.githubusercontent.com/67522615/139586177-73f8cee4-2819-4e58-8f7d-7ca086b9a8f3.png)
 ![image](https://user-images.githubusercontent.com/67522615/139586186-ef64bb7d-09d4-4180-a3cf-084ff08e5a28.png)
 ![image](https://user-images.githubusercontent.com/67522615/139586192-be6e61be-d014-42f4-a6ae-7abb91203f8a.png)
