@@ -37,10 +37,9 @@ class _LoginState extends State<Login> {
               Container(
                 width: MediaQuery.of(context).size.width / 5 * 2,
                 child: TextField(
-                  controller: _busNoController = TextEditingController(),
+                  controller: _busNoController,
                   maxLength: 4,
                   showCursor: false,
-                  keyboardType: TextInputType.phone,
                   cursorWidth: 1,
                   cursorColor: Colors.lightGreenAccent,
                   enableSuggestions: true,
