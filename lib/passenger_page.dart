@@ -37,13 +37,12 @@ class PassengerPageState extends State<PassengerPage> {
             builder: (context, snapshot) {
               Set<Marker> _markers = {};
 
-              if (!snapshot.hasError &&
-                  snapshot.connectionState != ConnectionState.waiting) {
+              if (snapshot.hasData) {
                 snapshot.data!.docs.map((DocumentSnapshot document) {
                   Map<String, dynamic> data =
                       document.data()! as Map<String, dynamic>;
                   _markers.add(Marker(
-                      markerId: data["busNo"],
+                      markerId: MarkerId("Bus"),
                       position: LatLng(data["latitude"], data["longitude"])));
                 });
               }

@@ -43,7 +43,6 @@ class _DriverWhileDrivingState extends State<DriverWhileDriving> {
   @override
   void initState() {
     super.initState();
-    Firebase.initializeApp();
     Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
     Timer.periodic(Duration(seconds:1),(Timer t) => _getCurrentLocation());
   }
